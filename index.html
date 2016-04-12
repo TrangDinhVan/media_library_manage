@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Upload media</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/ProgressBarWars.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/ProgressBarWars.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+    <style>
+        .media-upload-wrapper {
+          width: 100%;
+          max-width: 768px;
+          margin: 0 auto;
+          margin-top: 10px;
+        }
+        .media-upload-wrapper a {
+          color: #000;
+        }
+        .media-upload-wrapper a:hover, a:visited, a:active, a:link {
+          text-decoration: none !important;
+        }
+        .media-upload-wrapper .media-upload-head {
+          clear: both;
+          overflow: hidden;
+          padding: 10px 5px 15px;
+          border: 2px solid #ddd;
+          border-bottom: none;
+        }
+        .media-upload-wrapper .sources-title {
+          float: left;
+        }
+        .media-upload-wrapper .source-links {
+          float: right;
+        }
+        .media-upload-wrapper .source-links a {
+          padding: 10px 15px;
+          border-bottom: 3px solid transparent;
+        }
+        .media-upload-wrapper .source-links a:hover, .media-upload-wrapper .source-links a.active{
+            border-bottom-color: #f00;
+        }
+        .media-upload-wrapper input{
+            width: 100%;
+            display: block;
+            border: none;
+            border: 2px  solid #aaa;
+            border-bottom: none;
+            padding: 5px 5px;
+            color: #888;
+        }
+        .media-upload-wrapper .button-wrap{
+            margin-top: 20px;
+            clear: both;
+            overflow: hidden;
+        }
+        .media-upload-wrapper .button-wrap a{
+            /* float: none !important; */
+            display: inline-block;
+            float: right !important;
+            font-weight: 700;
+            color: #fff;
+            padding: 3px 30px;
+            margin-left: 5px;
+            background-color: #999;
+        }
+        .media-upload-wrapper .to-choose-button{
+            background-color: #f00 !important;
+        }
+        .media-upload-wrapper .to-upload-button{
+            background-color: #f00;
+            padding: 3px 5px;
+            color: #fff;
+        }
+        .media-upload-wrapper .media-upload-body{
+            background-color: #eee;
+            padding: 20px 25px 20px 25px;
+        }
+        .media-upload-wrapper .media-content{
+            border: 2px solid #aaa;
+            padding: 20px;
+            overflow: hidden;
+            clear: both;
+            min-height: 320px;
+        }
+        .media-upload-wrapper .media-content div{
+            clear: both;
+        }
+        .media-upload-wrapper #media-list a{
+            display: block;
+            overflow: hidden;
+            float: left;
+            margin: 0 15px 15px 0;
+            position: relative;
+        }
+        .media-upload-wrapper #media-list .overlay{
+            position: absolute;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 128, 0, 0.7);
+            top: 0;
+            font-size: 28px;
+            font-weight: 700;
+            -webkit-justify-content: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
+            -webkit-align-items: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            color: #fff;
+            opacity: 0;
+        }
+        .media-upload-wrapper #media-list a.active .overlay{
+            opacity: 1;
+        }
+        .media-upload-wrapper #media-upload-process{
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="media-upload-wrapper">
+            <div class="media-upload-head">
+                <div class="sources-title">CHÈN ẢNH</div>
+                <div class="text-right source-links">
+                    <a href="#" class="active" data-target="#media-list">Kho ảnh</a>
+                    <a href="#" class="" data-target="#media-upload-process">Tải ảnh lên</a>
+                    <a href="#" class="" data-target="#media-upload-process">Địa chỉ web (URL)</a>
+                </div>
+            </div>
+            <div class="media-upload-body">
+                <input type="text" name="media-url" class="media-url" value="http://sample-site.com/images/sample-image.png">
+                <form action="" method="post" enctype="multipart/form-data" id="fileUploadForm" style="display: none;">
+                    <input type="file" name="file" accept="image/*">
+                </form>
+                <div class="media-content">
+                    <div id="media-list">
+                        <a href="#"><img src="images/300x300.gif" alt="thumb" width="110" height="110"><span class="overlay">&checkmark;</span></a>
+                        <a href="#"><img src="images/300x300.gif" alt="thumb" width="110" height="110"><span class="overlay">&checkmark;</span></a>
+                        <a href="#"><img src="images/300x300.gif" alt="thumb" width="110" height="110"><span class="overlay">&checkmark;</span></a>
+                        <a href="#"><img src="images/300x300.gif" alt="thumb" width="110" height="110"><span class="overlay">&checkmark;</span></a>
+                        <a href="#"><img src="images/300x300.gif" alt="thumb" width="110" height="110"><span class="overlay">&checkmark;</span></a>
+                        <a href="#"><img src="images/300x300.gif" alt="thumb" width="110" height="110"><span class="overlay">&checkmark;</span></a>
+                        <a href="#"><img src="images/300x300.gif" alt="thumb" width="110" height="110"><span class="overlay">&checkmark;</span></a>
+
+                    </div>
+                    <div id="media-upload-process" style="display: none;">
+                        <div class="text-center">
+                            <div class="process-init">
+                                <h3>Kéo ảnh vào đây</h3>
+                                <p>Hoặc</p>
+                                <a href="#" class="to-upload-button">Chọn ảnh để tải</a>
+                            </div>
+                            <div class="process-doing" style="display: none;">
+                                <div id="upload-processing" style="width: 60%; margin: 0 auto;"></div>
+                                <p>Đang tải ảnh lên</p>
+                            </div>
+                        </div>
+                        <ul style="margin-top: 100px;">
+                            <li>Thầy cô đặt tên theo quy định: tenmon tengv tenanh</li>
+                            <li>Thầy cô đặt tên theo quy định: tenmon tengv tenanh</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="button-wrap text-right">
+                    <a href="#" class="to-cancel-button">Hủy</a>
+                    <a href="#" class="to-choose-button">Chọn</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        jQuery(document).ready(function($) {
+            $('.source-links a').on('click', function(event) {
+                event.preventDefault();
+                $('.source-links a').removeClass('active');
+                $(this).addClass('active');
+                var target = $(this).data('target');
+                $('.media-content > div').slideUp();
+                $('.media-content > div'+target).slideDown();
+            });
+            $('a.to-upload-button').on('click', function(event) {
+                event.preventDefault();
+                $('#fileUploadForm input[name=file]').click();
+            });
+            $('#fileUploadForm input[name=file]').on('change', function(event) {
+                event.preventDefault();
+                //doc: http://www.jqueryrain.com/2015/12/progressbarwars-jquery-animated-progress-bar/
+                $('.process-init').hide();
+                $('.process-doing').show();
+                $("#upload-processing").ProgressBarWars({
+                    porcentaje:100,
+                    estilo:"vader",
+                    tiempo:3580,
+                    color:"#F00",
+                    alto:"2px", //height
+                });
+                $('#fileUploadForm').submit(function(event) {
+                });
+            });
+            $('#media-list a').click(function(event) {
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+</body>
+</html>
